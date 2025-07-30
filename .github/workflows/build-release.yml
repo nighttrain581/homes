@@ -22,13 +22,20 @@ jobs:
             echo "Zipping $pkg..."
             zip -r "output/${pkg}.zip" "$dir"
           done
+          # Create master catalog
+          zip -r output/Master_Catalog.zip Design_Packages/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
           name: "Home Packages Build ${{ github.run_number }}"
-          body: "Auto-generated release of all home design packages."
+          body: |
+            Auto-generated release of all home design packages.
+            
+            Includes:
+            - Individual ZIPs (one per package)
+            - Master_Catalog.zip (all packages together)
           files: output/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
