@@ -1,3 +1,22 @@
+homes/
+ ├── branding/                  # Logo & brand assets
+ ├── Design_Packages/           # Where home design packages will go
+ ├── thumbnails/                # Auto-generated watermarked previews
+ ├── .github/
+ │    └── workflows/
+ │         └── build-release.yml   # Automation script
+ ├── Design_Index.xlsx          # Will track all designs (empty for now)
+ ├── Design_Index.csv           # Lightweight version (empty for now)
+ ├── Design_Catalog.md          # Catalog of designs (empty for now)
+ ├── CHANGELOG.md               # Version history (empty for now)
+ └── README.md                  # Project overview
+
+
+
+
+
+
+
 name: Build & Release Home Package
 
 on:
