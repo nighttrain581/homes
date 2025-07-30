@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install zip
         run: sudo apt-get update && sudo apt-get install -y zip
@@ -20,7 +20,7 @@ jobs:
           zip -r output/KCR-001_Test.zip Design_Packages/KCR-001_Test
 
       - name: Upload release artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: KCR-001_Test
           path: output/KCR-001_Test.zip
