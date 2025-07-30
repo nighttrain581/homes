@@ -1,4 +1,4 @@
-name: Build & Release Home Package
+name: Build & Release All Home Packages
 
 on:
   push:
@@ -14,14 +14,18 @@ jobs:
       - name: Install zip
         run: sudo apt-get update && sudo apt-get install -y zip
 
-      - name: Create package zip
+      - name: Create zips for all design packages
         run: |
           mkdir -p output
-          zip -r output/KCR-001_Test.zip Design_Packages/KCR-001_Test
+          for dir in Design_Packages/*/; do
+            pkg=$(basename "$dir")
+            echo "Zipping $pkg..."
+            zip -r "output/${pkg}.zip" "$dir"
+          done
 
-      - name: Upload release artifact
+      - name: Upload all artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: KCR-001_Test
-          path: output/KCR-001_Test.zip
+          name: Design_Packages_All
+          path: output/*.zip
 
