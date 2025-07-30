@@ -1,42 +1,20 @@
-name: Build & Release Home Packages
+    - name: Create or Update Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: latest
+        name: Latest Home Packages
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-on:
-  push:
-    branches: [ "main" ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Install zip
-        run: sudo apt-get update && sudo apt-get install -y zip
-
-      - name: Create zips for all design packages
-        run: |
-          mkdir -p output
-          for dir in Design_Packages/*/; do
-            pkg=$(basename "$dir")
-            echo "Zipping $pkg..."
-            zip -r "output/${pkg}.zip" "$dir"
-          done
-          # Create master catalog
-          zip -r output/Master_Catalog.zip Design_Packages/
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: build-${{ github.run_number }}
-          name: "Home Packages Build ${{ github.run_number }}"
-          body: |
-            Auto-generated release of all home design packages.
-            
-            Includes:
-            - Individual ZIPs (one per package)
-            - Master_Catalog.zip (all packages together)
-          files: output/*.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload Master Catalog
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: latest
+        files: |
+          Master_Catalog.zip
+          Design_Packages/*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
