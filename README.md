@@ -14,8 +14,8 @@ Each design package includes:
 - Marketing Brochures
 
 ## Current Status
-✅ Test upload successful.  
-🚧 Full project upload in progress.  
+✅ Repo structure initialized.  
+🚧 First package (KCR-001 Modern Oasis Villa) in progress.  
 
 ---
 © MiMi & Son LLC K-Cribs
